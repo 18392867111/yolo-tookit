@@ -34,19 +34,20 @@ def write_yolo3_txt(xlm_filename,txt_output_path):
 	txt_filename = xlm_filename.split('/')[-1][0:5]+'.txt'
 	with open(txt_output_path + txt_filename,'w') as f:
 		for i in range(len(xml_boxlabel_numeric)):
-			xml_box_x_center = round((int(xml_box_xmin[i].firstChild.data)+(int(xml_box_xmax[i].firstChild.data)-int(xml_box_xmin[i].firstChild.data))/2)/int(xml_img_width),2)
-			xml_box_y_center = round((int(xml_box_ymin[i].firstChild.data)+(int(xml_box_ymax[i].firstChild.data)-int(xml_box_ymin[i].firstChild.data))/2)/int(xml_img_height),2)
-			xml_box_width = round((int(xml_box_xmax[i].firstChild.data)-int(xml_box_xmin[i].firstChild.data))/int(xml_img_width),2)
-			xml_box_height = round((int(xml_box_ymax[i].firstChild.data)-int(xml_box_ymin[i].firstChild.data))/int(xml_img_height),2)
+			xml_box_x_center = round((int(xml_box_xmin[i].firstChild.data)+(int(xml_box_xmax[i].firstChild.data)-int(xml_box_xmin[i].firstChild.data))/2)/int(xml_img_width),6)
+			xml_box_y_center = round((int(xml_box_ymin[i].firstChild.data)+(int(xml_box_ymax[i].firstChild.data)-int(xml_box_ymin[i].firstChild.data))/2)/int(xml_img_height),6)
+			xml_box_width = round((int(xml_box_xmax[i].firstChild.data)-int(xml_box_xmin[i].firstChild.data))/int(xml_img_width),6)
+			xml_box_height = round((int(xml_box_ymax[i].firstChild.data)-int(xml_box_ymin[i].firstChild.data))/int(xml_img_height),6)
 			f.write(dic[xml_boxlabel_numeric[i].firstChild.data]+' '+str(xml_box_x_center)+' '+str(xml_box_y_center)+' '+str(xml_box_width)+' '+str(xml_box_height)+'\n')
 
 if __name__ == '__main__':
 	dic = {'y':'0','n':'1'}
-	xml_input_path = '/home/ljq/桌面/未命名文件夹/xml/'
+	xml_input_path = '/media/ljq/文档/刘佳奇/深度学习之Tensorflow工程化项目实战/第8章_卷积神经网络(CNN)——在图像处理中应用最广泛的模型/实例44用YOLO3模型识别门牌号/8-13  yolov3numbers/data/ann/'
 	xlm_filenames = read_xml_dir(xml_input_path)
 	txt_output_path = '/home/ljq/桌面/未命名文件夹/yolo3_txt/'
-
+	i = 1
 	for xlm_filename in xlm_filenames:	
 		write_yolo3_txt(xlm_filename,txt_output_path)
-
+		print('it have finished ' , i )
+		i += 1  
 
